@@ -13,7 +13,7 @@ import { scrollToTop } from "@/lib/helpers/scrollToTopOfContainer";
 const contactMethods = [
   {
     imageUrl: "/message.svg",
-    value: "admission@lnctBAGLI.com",
+    value: "admission@lnctbagli.com",
   },
   {
     imageUrl: "/phone.svg",
@@ -25,7 +25,7 @@ const contactMethods = [
   },
   {
     imageUrl: "/location.svg",
-    value: "BHAWARASALA BAGLI",
+    value: "In front of Rambag Petrol Pump",
   },
 ];
 const ContactForm = () => {
@@ -206,8 +206,8 @@ const ContactForm = () => {
                     <div className="flex flex-col">
                       <h2 className="text-2xl">Main Office</h2>
                       <p className="text-gray-400">
-                        BHAWARASALA , BEHIND ARVINDO REVATI, Sanwer Rd, BAGLI,
-                        Madhya Pradesh 453555
+                        Pratibha Global School, In Front of Ram Bag Petrol Pump,
+                        Bagli, PIN CODE: 455227
                       </p>
                     </div>
                   </div>
