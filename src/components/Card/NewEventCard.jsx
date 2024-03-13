@@ -41,7 +41,7 @@ export default function NewEventCard({ event }) {
 
   // Convert both location and the comparison value to lowercase
   const lowerCaseLocation = location.toLowerCase();
-  const searchTerm = "BAGLI";
+  const searchTerm = "bagli";
 
   // Check if the lowercase location contains the string 'BAGLI'
   if (!lowerCaseLocation.includes(searchTerm)) {
