@@ -5,6 +5,7 @@ import moment from "moment";
 import { getAllNews } from "@/lib/services/news/index";
 import NewNewsCard from "@/components/Card/NewNewsCard";
 import Pagination from "@/components/Pagination/Pagination";
+import { getSchoolDetails } from "@/lib/services/schools/schoolservices";
 
 const NewsList = ({ newsList }) => {
   const [currentPage, setCurrentPage] = useState(1);
