@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import DeleteButton from "@/components/Event/delete";
 import Pagination from "@/components/Pagination/Pagination";
 
-const EventTable = ({ events, onDelete, onEdit }) => {
+const EventTable = ({events, onDelete, onEdit }) => {
+  console.log(events)
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
