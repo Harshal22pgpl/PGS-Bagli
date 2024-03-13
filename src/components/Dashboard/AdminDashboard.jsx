@@ -15,10 +15,9 @@ const Dashboard = ({ clientProps }) => {
     news = [],
     events = [],
 
-    notice =[],
+    notice = [],
 
     profie = {},
-
   } = clientProps;
 
   if (isFailed) {
@@ -472,8 +471,6 @@ const Dashboard = ({ clientProps }) => {
             </div>
           </div>
         </div>
-
-        
 
         <div className="md:col-span-2 xl:col-span-1">
           <div className="rounded bg-gray-200 dark:bg-gray-800 p-3  min-h-[350px] overflow-y-auto">

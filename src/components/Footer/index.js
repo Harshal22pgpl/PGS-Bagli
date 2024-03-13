@@ -219,8 +219,8 @@ const Footer = () => {
                     href="#"
                     className="text-gray-700 transition hover:opacity-75"
                   >
-                     Pratibha Global School, In Front of Ram Bag Petrol Pump,
-                        Bagli, PIN CODE: 455227
+                    Pratibha Global School, In Front of Ram Bag Petrol Pump,
+                    Bagli, PIN CODE: 455227
                   </Link>
                 </li>
               </ul>

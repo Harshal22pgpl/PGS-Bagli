@@ -5,8 +5,10 @@ import React, { useState, useEffect } from 'react';
 import { addNotice, updateNotice } from '@/lib/services/notices/index';
 import Loader from '@/components/Loader/Loader';
 import Notification from '@/components/Toast/Notification';
-import { NOTICES } from '@/lib/constants/index';
+import { NOTICES ,ADMIN} from '@/lib/constants/index';
 import moment from 'moment';
+import { first } from "lodash";
+import useDropdown from "@/hooks/useDropDown";
 import { uploadImg } from "@/lib/services/files/fileServices";
 
 const fields = [
@@ -16,7 +18,7 @@ const fields = [
   { name: 'endDate', label: 'Published Date', type: 'datetime-local', placeholder: 'Select Date' },
 ];
 
-const NewsForm = ({ selectedNewsId, onFormSubmit, noticeList }) => {
+const NewsForm = ({ selectedNewsId, onFormSubmit, noticeList,...others }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setError] = useState({ msg: '', type: '' });
   // const [thumbnailFile, setThumbnailFile] = useState(null);
@@ -24,6 +26,13 @@ const NewsForm = ({ selectedNewsId, onFormSubmit, noticeList }) => {
     ...NOTICES,
     publishedDate: moment().format('YYYY-MM-DD HH:mm:ss'), // Initialize with current date and time
   });
+  const { schools=[], schoolUuid='', profile={} } = others;
+  const [organization, OrganizationDropDown, setOrganization] = useDropdown(
+    "School",
+    schoolUuid || first(schools).value,
+    others?.schools || []
+  );
+
 
   useEffect(() => {
       // If selectedNewsId is provided, populate the form with existing news data
@@ -79,7 +88,9 @@ const NewsForm = ({ selectedNewsId, onFormSubmit, noticeList }) => {
         ? await updateNotice({ ...notice, endDate: formattedDate, uuid: selectedNewsId })
         : await addNotice({  ...notice,
           file: imgRes,
-          endDate: formattedDate });
+          endDate: formattedDate,
+          organizationUuid: organization || schoolUuid,
+        });
           onFormSubmit()
       
       // if (res) {
@@ -103,7 +114,7 @@ const NewsForm = ({ selectedNewsId, onFormSubmit, noticeList }) => {
   return (
     <>
       <div className='flex flex-col w-full justify-center items-center bg-[url("/MessageSvg.svg")]'>
-        <h1 className='text-center mx-auto w-full my-3 text-4xl font-bold text-tred '>News Details Form</h1>
+        <h1 className='text-center mx-auto w-full my-3 text-4xl font-bold text-tred '>Notice Details Form</h1>
         <div className='w-11/12 rounded-lg flex flex-col justify-center items-center bg-bred opacity-75 p-5' onSubmit={handleSubmit}>
           <div className='w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 '>
             {fields.map((field) => (
@@ -119,12 +130,14 @@ const NewsForm = ({ selectedNewsId, onFormSubmit, noticeList }) => {
                       ? notice[field.name]?.File?.filename
                       : notice[field.name]
                   }
+                  
                   onChange={handleChange}
                   placeholder={field.placeholder}
                   required
                 />
               </div>
             ))}
+             {profile.userType === ADMIN && <OrganizationDropDown />}
           </div>
           <button
             onClick={handleSubmit}
