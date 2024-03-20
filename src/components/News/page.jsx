@@ -64,6 +64,7 @@ const NewsPage = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
+        setIsLoading(true);
         const school = await getSchoolDetails();
         const schoolUuid = school?.uuid;
         const newsData = await getAllNews(schoolUuid);
