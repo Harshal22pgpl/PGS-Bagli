@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const NewsCarousel = ({ mixedData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const totalItems = 10;
+  const totalItems = 5;
 
   const nextSlide = () => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % totalItems);
