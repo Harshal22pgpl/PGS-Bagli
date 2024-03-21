@@ -46,7 +46,7 @@ const About = () => {
 
   const [cards, setCards] = useState([
     {
-      name: "Mrs. Arun Agrawal",
+      name: "Mr. Arun Agrawal",
       image: "/Mgt/principal.png",
       qualification: "Bachelor's Degree in Early Childhood Education",
       description:

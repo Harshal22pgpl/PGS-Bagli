@@ -15,7 +15,7 @@ export default function AboutManagement() {
                         <AboutManagementCard img="/Mgt/chairperson.png" name="Mrs. Pratibha Chouksey" post="Co-Founder & Chairperson SKC LNCT Group Of Colleges" link="/about/chairmans-message" />
                         <AboutManagementCard img="/Mgt/director.png" name="Mr. Suprabhat Chouksey" post="Managing Director of SKC LNCT Group Of Colleges " link="/about/directors-message" />
                         <AboutManagementCard img="/Mgt/sl.png" name="Dr. Sandhya Chouksey" post="Director Curriculum of SKC LNCT Group Of Colleges" link="/about/about-leaders" />
-                        <AboutManagementCard img="/Mgt/principal.png" name="Mrs. Arun Agrawal" post="Principal (Pratibha Global School, Bagli)" link="/about/principals-message" />
+                        <AboutManagementCard img="/Mgt/principal.png" name="Mr. Arun Agrawal" post="Principal (Pratibha Global School, Bagli)" link="/about/principals-message" />
 
                     </div>
                 </div>
