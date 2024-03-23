@@ -186,33 +186,34 @@ const NoticeForm = ({ selectedNoticeId, setSelectedNoticeId, onFormSubmit, notic
                 {profile.userType === ADMIN && <OrganizationDropDown />}
               </div>
               {fields.map((field) => (
-                <div key={field.name} className="w-full flex flex-col py-2 px-4">
-                  <label htmlFor={field.name} className="w-32 md:w-40 lg:w-40 p-2 text-xl font-bold">
-                    {field.label}
-                  </label>
-                  {field.type === "file" ? (
-                    <>
-                      <input
-                        ref={fileInputRef}
-                        name={field.name}
-                        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-                        id={field.name}
-                        type={field.type}
-                        onChange={handleChange}
-                        required
-                      />
-                      {prevImagePreview && (
-                        <div>
-                          <p className="font-medium text-lg mt-5">{prevImagePreviewText}</p>
-                          <img
-                            src={prevImagePreview}
-                            alt={prevImagePreviewText}
-                            style={{ maxWidth: "100px", marginTop: "10px" }}
-                          />
-                        </div>
-                      )}
-                    </>
-                  ) : (
+                <div className="w-full flex flex-col py-2 px-4">
+                <label htmlFor={field.name} className="w-32 md:w-40 lg:w-40 p-2 text-xl font-bold">
+                  {field.label}
+                </label>
+                {field.type === "file" ? (
+                  <>
+                    <input
+                      ref={fileInputRef}
+                      name={field.name}
+                      className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
+                      id={field.name}
+                      type={field.type}
+                      onChange={handleChange}
+                      required
+                    />
+                    {prevImagePreview && (
+                      <div>
+                        <p className="font-medium text-lg mt-5">{prevImagePreviewText}</p>
+                        <img
+                          src={prevImagePreview}
+                          alt={prevImagePreviewText}
+                          style={{ maxWidth: "100px", marginTop: "10px" }}
+                        />
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
                     <input
                       name={field.name}
                       className={`p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black ${
@@ -225,11 +226,18 @@ const NoticeForm = ({ selectedNoticeId, setSelectedNoticeId, onFormSubmit, notic
                       placeholder={field.placeholder}
                       required
                     />
-                  )}
-                  {validationErrors[field.name] && (
-                    <span className="text-red-500 text-sm mt-1">{validationErrors[field.name]}</span>
-                  )}
-                </div>
+                    {field.name === "endDate" && (
+                      <span className="text-gray-600 text-sm mt-1">
+                        Note: End date should be 1 day after the current date.
+                      </span>
+                    )}
+                  </>
+                )}
+                {validationErrors[field.name] && (
+                  <span className="text-red-500 text-sm mt-1">{validationErrors[field.name]}</span>
+                )}
+              </div>
+              
               ))}
             </div>
             {isEditMode ? (
