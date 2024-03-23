@@ -1,4 +1,5 @@
-"use client";
+
+'use client'
 import React, { useState, useEffect, useRef } from "react";
 import { addNotice, updateNotice } from "@/lib/services/notices/index";
 import Loader from "@/components/Loader/Loader";
@@ -11,28 +12,12 @@ import { uploadImg } from "@/lib/services/files/fileServices";
 
 const fields = [
   { name: "title", label: "Title", type: "text", placeholder: "Enter Title" },
-  {
-    name: "description",
-    label: "Description",
-    type: "text",
-    placeholder: "Enter Description",
-  },
-  {
-    name: "endDate",
-    label: "End Date",
-    type: "datetime-local",
-    placeholder: "Select End Date",
-  },
+  { name: "description", label: "Description", type: "text", placeholder: "Enter Description" },
+  { name: "endDate", label: "End Date", type: "datetime-local", placeholder: "Select End Date" },
   { name: "file", label: "File", type: "file", placeholder: "Upload File" },
 ];
 
-const NoticeForm = ({
-  selectedNoticeId,
-  setSelectedNoticeId,
-  onFormSubmit,
-  noticeList,
-  ...others
-}) => {
+const NoticeForm = ({ selectedNoticeId, setSelectedNoticeId, onFormSubmit, noticeList, ...others }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setError] = useState({ msg: "", type: "" });
   const [validationErrors, setValidationErrors] = useState({});
@@ -49,16 +34,12 @@ const NoticeForm = ({
   );
   const [isEditMode, setIsEditMode] = useState(false);
   const [prevImagePreview, setPrevImagePreview] = useState(null);
-  const [prevImagePreviewText, setPrevImagePreviewText] = useState(
-    "Previously Used Image"
-  );
+  const [prevImagePreviewText, setPrevImagePreviewText] = useState("Previously Used Image");
 
   useEffect(() => {
     if (selectedNoticeId) {
-      const selectedNotice = noticeList.find(
-        (notice) => notice.uuid === selectedNoticeId
-      );
-
+      const selectedNotice = noticeList.find((notice) => notice.uuid === selectedNoticeId);
+  
       if (selectedNotice) {
         setNoticeData({
           title: selectedNotice.title,
@@ -84,10 +65,10 @@ const NoticeForm = ({
       setPrevImagePreviewText("Previously Used Image"); // Reset text for previous image
     }
   }, [selectedNoticeId, noticeList]);
-
+  
   const handleChange = ({ target }) => {
     const { name, value } = target;
-
+    
     if (name === "file") {
       setNoticeData((prev) => ({
         ...prev,
@@ -96,9 +77,9 @@ const NoticeForm = ({
     } else {
       setError({ msg: "", type: "" });
       const isDateTimeLocal = target.type === "datetime-local";
-
+  
       let rawValue = value;
-
+  
       // Handle datetime-local input
       if (isDateTimeLocal) {
         // Construct the date and time string in the required format
@@ -106,9 +87,9 @@ const NoticeForm = ({
         const timeValue = moment(value).format("HH:mm");
         rawValue = `${dateValue}T${timeValue}`;
       }
-
+  
       setNoticeData((prev) => ({ ...prev, [name]: rawValue }));
-
+  
       // Clear validation error for the current field
       setValidationErrors((prevErrors) => {
         const updatedErrors = { ...prevErrors };
@@ -117,6 +98,7 @@ const NoticeForm = ({
       });
     }
   };
+  
 
   const handleCancelEdit = () => {
     setNoticeData({ ...NOTICES });
@@ -153,12 +135,6 @@ const NoticeForm = ({
           organizationUuid: organization || schoolUuid,
         });
       } else {
-        await addNotice({
-          ...notice,
-          file: imgRes,
-          endDate: formattedDate,
-          organizationUuid: organization || schoolUuid,
-        });
         await addNotice({
           ...notice,
           file: imgRes,
@@ -202,94 +178,89 @@ const NoticeForm = ({
           Notice Details Form
         </h1>
         <div
-          className="w-11/12 rounded-lg flex flex-col justify-center items-center bg-bgreen opacity-75 p-5"
-          onSubmit={handleSubmit}
+          className="w-11/12 rounded-lg flex flex-col justify-center items-center bg-bred opacity-75 p-5"
         >
-          <div className="w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1">
-            <div>{profile.userType === ADMIN && <OrganizationDropDown />}</div>
-            {fields.map((field) => (
-              <div key={field.name} className="w-full flex flex-col py-2 px-4">
-                <label
-                  htmlFor={field.name}
-                  className="w-32 md:w-40 lg:w-40 p-2 text-xl font-bold"
-                >
-                  {field.label}
-                </label>
-                {field.type === "file" ? (
-                  <>
+          <form onSubmit={handleSubmit}> {/* Ensure handleSubmit is bound to form submission */}
+            <div className="w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1">
+              <div>
+                {profile.userType === ADMIN && <OrganizationDropDown />}
+              </div>
+              {fields.map((field) => (
+                <div key={field.name} className="w-full flex flex-col py-2 px-4">
+                  <label htmlFor={field.name} className="w-32 md:w-40 lg:w-40 p-2 text-xl font-bold">
+                    {field.label}
+                  </label>
+                  {field.type === "file" ? (
+                    <>
+                      <input
+                        ref={fileInputRef}
+                        name={field.name}
+                        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
+                        id={field.name}
+                        type={field.type}
+                        onChange={handleChange}
+                        required
+                      />
+                      {prevImagePreview && (
+                        <div>
+                          <p className="font-medium text-lg mt-5">{prevImagePreviewText}</p>
+                          <img
+                            src={prevImagePreview}
+                            alt={prevImagePreviewText}
+                            style={{ maxWidth: "100px", marginTop: "10px" }}
+                          />
+                        </div>
+                      )}
+                    </>
+                  ) : (
                     <input
-                      ref={fileInputRef}
                       name={field.name}
-                      className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
+                      className={`p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black ${
+                        validationErrors[field.name] ? "border-red-500" : ""
+                      }`}
                       id={field.name}
                       type={field.type}
+                      value={notice[field.name]}
                       onChange={handleChange}
+                      placeholder={field.placeholder}
                       required
                     />
-                    {prevImagePreview && (
-                      <div>
-                        <p className="font-medium text-lg mt-5">
-                          {prevImagePreviewText}
-                        </p>
-                        <img
-                          src={prevImagePreview}
-                          alt={prevImagePreviewText}
-                          style={{ maxWidth: "100px", marginTop: "10px" }}
-                        />
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <input
-                    name={field.name}
-                    className={`p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black ${
-                      validationErrors[field.name] ? "border-red-500" : ""
-                    }`}
-                    id={field.name}
-                    type={field.type}
-                    value={notice[field.name]}
-                    onChange={handleChange}
-                    placeholder={field.placeholder}
-                    required
-                  />
-                )}
-                {validationErrors[field.name] && (
-                  <span className="text-red-500 text-sm mt-1">
-                    {validationErrors[field.name]}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-          {isEditMode ? (
-            <div className="flex">
-              <button
-                onClick={handleSubmit}
-                className="w-20 my-5 mx-2 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 bg-white hover:bg-tgreen"
-              >
-                Update
-              </button>
-              <button
-                onClick={handleCancelEdit}
-                className="w-20 my-5 mx-2 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 bg-red-400 hover:bg-red-500 text-white"
-              >
-                Cancel
-              </button>
+                  )}
+                  {validationErrors[field.name] && (
+                    <span className="text-red-500 text-sm mt-1">{validationErrors[field.name]}</span>
+                  )}
+                </div>
+              ))}
             </div>
-          ) : (
-            <button
-              onClick={handleSubmit}
-              className="w-20 my-5 mx-auto font-bold p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 bg-blue-400 text-white"
-            >
-              Submit
-            </button>
-          )}
+            {isEditMode ? (
+              <div className="flex">
+                <button
+                  type="submit" 
+                  className="w-20 my-5 mx-2 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 bg-white hover:bg-tred"
+                >
+                  Update
+                </button>
+                <button
+                  type="button" 
+                  onClick={handleCancelEdit}
+                  className="w-20 my-5 mx-2 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 bg-red-400 hover:bg-red-500 text-white"
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <button
+                type="submit"
+                className="w-20 my-5 mx-auto font-bold p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 bg-blue-400 text-white"
+              >
+                Submit
+              </button>
+            )}
+          </form>
         </div>
       </div>
       {isLoading && <Loader />}
-      {hasError.msg && (
-        <Notification type={hasError.type} message={hasError.msg} />
-      )}
+      {hasError.msg && <Notification type={hasError.type} message={hasError.msg} />}
     </>
   );
 };
