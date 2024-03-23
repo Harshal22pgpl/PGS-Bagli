@@ -261,7 +261,7 @@ const NoticeForm = ({ selectedNoticeId, setSelectedNoticeId, onFormSubmit, notic
       </div>
       {isLoading && <Loader />}
       {hasError.msg && <Notification type={hasError.type} message={hasError.msg} />}
-    </>
+F    </>
   );
 };
 
