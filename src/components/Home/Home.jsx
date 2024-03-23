@@ -9,9 +9,11 @@ import Counter from "@/components/Counter/page";
 import ImageGallery from "@/components/ImageHomeGallary/ImageHomeGallary";
 import LatestNews from "@/components/News/NewsSection";
 import ModalHome from "@/components/ModalHome/ModalHome";
+import { getAllBanner } from "@/lib/services/banner/banner";
 
 export default function Home({ school }) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [banner, setBanner] = useState([]);
   const images = [
     "/homeGallary/HeroSectionImage (2).jpg",
     "/homeGallary/HeroSectionImage (3).jpg",
@@ -196,12 +198,12 @@ export default function Home({ school }) {
               engineering is making the current workforce redundant and only
               those who are able to learn and train themselves with these
               technologies will be able to continue forward. At Pratibha Global
-              BAGLI School we ensure that all children at our campus inculcate
-              a rapid learning aptitude and a competitive spirit from the very
-              beginning. Pratibha Global BAGLI School aims to provide a
-              holistic education and conducive atmosphere to every child for
-              their emotional, spiritual, physical and intellectual growth along
-              with the ability to conquer future challenges.
+              BAGLI School we ensure that all children at our campus inculcate a
+              rapid learning aptitude and a competitive spirit from the very
+              beginning. Pratibha Global BAGLI School aims to provide a holistic
+              education and conducive atmosphere to every child for their
+              emotional, spiritual, physical and intellectual growth along with
+              the ability to conquer future challenges.
             </p>
           </div>
           <div className=" lg:w-1/2 md:full sm:w-full w-full flex justify-center items-center">
@@ -219,6 +221,8 @@ export default function Home({ school }) {
             </div>
           </div>
         </div>
+
+        
         <LatestNews schoolUuid={school?.uuid} />
 
         {/* testmonials section  */}
